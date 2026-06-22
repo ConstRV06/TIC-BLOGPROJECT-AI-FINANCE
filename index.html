@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Finanzas Blog — El futuro del dinero ya está aquí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a14;
+  --bg-2:#0a1022;
+  --panel:#0d1528;
+  --panel-2:#111b33;
+  --line:rgba(56,189,248,.14);
+  --line-soft:rgba(148,163,184,.12);
+  --cyan:#38bdf8;
+  --cyan-bright:#22d3ee;
+  --cyan-deep:#0ea5e9;
+  --ink:#eef4ff;
+  --muted:#93a4c4;
+  --muted-2:#6f819f;
+  --green:#34d399;
+  --green-deep:#059669;
+  --red:#f87171;
+  --red-deep:#b91c1c;
+  --amber:#fbbf24;
+  --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 600px at 80% -10%, rgba(14,165,233,.16), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(34,211,238,.08), transparent 55%),
+    var(--bg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.1;margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--cyan-bright);outline-offset:3px;border-radius:6px}
+
+/* ---------- Reading progress ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;
+  background:linear-gradient(90deg,var(--cyan-deep),var(--cyan-bright));box-shadow:0 0 12px var(--cyan-bright);transition:width .1s linear}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(6,10,20,.92),rgba(6,10,20,.72));
+  border-bottom:1px solid var(--line-soft)}
+.nav{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:26px}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+.logo{width:34px;height:34px;flex:none}
+.brand b{font-family:'Space Grotesk';font-weight:700;letter-spacing:.04em;font-size:1.02rem}
+.brand span{display:block;font-size:.6rem;letter-spacing:.42em;color:var(--cyan);font-weight:600}
+.menu{display:flex;gap:24px;align-items:center}
+.menu a{font-size:.9rem;color:var(--muted);font-weight:500;position:relative;padding:6px 2px;transition:color .2s}
+.menu a:hover{color:var(--ink)}
+.menu a.active{color:var(--cyan-bright)}
+.menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:var(--cyan-bright);box-shadow:0 0 8px var(--cyan-bright)}
+.icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:6px;border-radius:8px}
+.icon-btn:hover{color:var(--ink)}
+.subscribe{background:linear-gradient(135deg,var(--cyan-deep),var(--cyan-bright));color:#05101e;border:none;
+  font-weight:700;font-size:.86rem;padding:10px 18px;border-radius:10px;cursor:pointer;font-family:'Inter';
+  box-shadow:0 8px 24px -8px rgba(34,211,238,.6);transition:transform .15s,box-shadow .2s}
+.subscribe:hover{transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(34,211,238,.8)}
+.burger{display:none}
+
+/* ---------- Shell ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:64px 0 30px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:18px;padding:6px 12px;border:1px solid var(--line);border-radius:30px;background:rgba(14,165,233,.06)}
+.hero h1{font-size:clamp(2.3rem,5vw,3.8rem);font-weight:700;letter-spacing:-.01em;text-transform:uppercase}
+.hero h1 .glow{background:linear-gradient(120deg,var(--cyan-bright),#7dd3fc);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 40px rgba(34,211,238,.35)}
+.hero p.lead{color:var(--muted);font-size:1.06rem;max-width:460px;margin:22px 0 28px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--cyan-deep),var(--cyan-bright));
+  color:#04121f;font-weight:700;padding:14px 26px;border-radius:12px;border:none;cursor:pointer;font-size:1rem;font-family:'Inter';
+  box-shadow:0 16px 40px -12px rgba(34,211,238,.65);transition:transform .15s,box-shadow .2s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 20px 50px -12px rgba(34,211,238,.85)}
+.cta svg{transition:transform .2s}
+.cta:hover svg{transform:translateX(4px)}
+
+.hero-visual{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);min-height:340px;
+  background:
+    radial-gradient(120% 120% at 70% 20%, rgba(14,165,233,.25), transparent 55%),
+    linear-gradient(160deg,#0b1830,#070d1c);
+  box-shadow:var(--shadow);display:grid;place-items:center}
+.grid-bg{position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(rgba(56,189,248,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.08) 1px,transparent 1px);
+  background-size:34px 34px;mask-image:radial-gradient(100% 100% at 50% 30%,#000,transparent 80%)}
+.chip{position:absolute;background:rgba(7,16,32,.85);border:1px solid var(--line);border-radius:14px;padding:12px 16px;backdrop-filter:blur(6px)}
+.chip .big{font-family:'Space Grotesk';font-weight:700;font-size:1.3rem}
+.chip .up{color:var(--green);font-weight:600;font-size:.85rem}
+.chip.price{top:22px;left:22px}
+.chip.market{bottom:22px;left:22px}
+.chip.market .lbl{font-size:.65rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.globe-container{position:relative;width:220px;height:220px;display:grid;place-items:center}
+.globe-ring{position:absolute;border-radius:50%;pointer-events:none}
+.globe-ring-1{width:272px;height:272px;border:1px solid rgba(56,189,248,.4);animation:spin 14s linear infinite}
+.globe-ring-2{width:328px;height:328px;border:1px dashed rgba(56,189,248,.22);animation:spin 26s linear infinite reverse}
+.globe-svg{position:relative;z-index:1;filter:drop-shadow(0 0 24px rgba(14,165,233,.55))}
+.merid-a,.merid-b,.merid-c{transform-box:fill-box;transform-origin:center}
+.merid-a{animation:merid-rot 12s linear infinite}
+.merid-b{animation:merid-rot 18s linear infinite reverse}
+.merid-c{animation:merid-rot 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes merid-rot{0%{transform:scaleX(1)}25%{transform:scaleX(0)}50%{transform:scaleX(-1)}75%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.globe-conn{animation:conn-glow 3.5s ease-in-out infinite}
+.conn-2{animation-delay:1.2s}
+.conn-3{animation-delay:2.4s}
+@keyframes conn-glow{0%,100%{opacity:.28}50%{opacity:.95}}
+@media (prefers-reduced-motion:reduce){.globe-ring-1,.globe-ring-2,.merid-a,.merid-b,.merid-c,.globe-conn{animation:none}}
+
+/* ---------- Ver Casos Reales Button ---------- */
+.ver-casos-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(14,165,233,.13),rgba(34,211,238,.08));border:1px solid rgba(56,189,248,.5);color:var(--cyan-bright);font-weight:700;padding:13px 22px;border-radius:12px;cursor:pointer;font-family:'Inter';font-size:.9rem;transition:background .2s,transform .15s,border-color .2s,box-shadow .2s}
+.ver-casos-btn:hover{background:linear-gradient(135deg,rgba(14,165,233,.24),rgba(34,211,238,.17));border-color:var(--cyan-bright);transform:translateY(-2px);box-shadow:0 8px 26px -8px rgba(34,211,238,.5)}
+.ver-casos-btn svg{transition:transform .2s}
+.ver-casos-btn:hover svg{transform:translateX(4px)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan-bright);flex:none;position:relative}
+.pulse-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:rgba(34,211,238,.32);animation:pulse-ring 1.8s ease-out infinite}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.8);opacity:0}}
+@media(prefers-reduced-motion:reduce){.pulse-dot::after{animation:none}}
+.casos-bar{margin:14px 0 -4px;display:flex;align-items:center;gap:14px}
+
+/* ---------- Casos Reales Modal ---------- */
+.casos-overlay{display:none;position:fixed;inset:0;z-index:90;background:rgba(6,10,20,.8);backdrop-filter:blur(8px);overflow-y:auto;padding:28px 16px}
+.casos-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.casos-panel{width:100%;max-width:940px;margin:auto;background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 100px -20px rgba(0,0,0,.88);animation:panel-in .28s ease}
+@keyframes panel-in{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.casos-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:26px 30px 18px;border-bottom:1px solid var(--line-soft)}
+.casos-hdr h2{font-size:1.5rem;font-weight:700;text-transform:uppercase;margin-top:6px}
+.casos-x{background:rgba(255,255,255,.06);border:1px solid var(--line-soft);color:var(--muted);width:36px;height:36px;border-radius:10px;font-size:1.5rem;cursor:pointer;display:grid;place-items:center;flex:none;line-height:1;transition:background .15s,color .15s}
+.casos-x:hover{background:rgba(248,113,113,.15);color:var(--red)}
+.casos-bd{padding:22px 30px 28px;display:grid;gap:18px}
+.caso-card{background:linear-gradient(160deg,var(--panel-2),rgba(9,15,30,.65));border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;transition:border-color .2s}
+.caso-card:hover{border-color:rgba(56,189,248,.4)}
+.caso-info{padding:20px 24px}
+.caso-tag{display:inline-block;font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:6px;background:rgba(56,189,248,.1);color:var(--cyan);border:1px solid rgba(56,189,248,.22);margin-bottom:11px}
+.caso-info h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.caso-info p{color:var(--muted);font-size:.86rem;margin:0 0 12px;line-height:1.56}
+.caso-mets{display:flex;gap:10px;flex-wrap:wrap}
+.caso-met{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.18);border-radius:9px;padding:7px 13px}
+.caso-met .v{font-family:'Space Grotesk';font-size:1.1rem;font-weight:700;color:var(--cyan-bright);display:block}
+.caso-met .l{font-size:.67rem;color:var(--muted-2);letter-spacing:.04em}
+.caso-vis{display:flex;align-items:center;justify-content:center;padding:14px 12px;background:rgba(6,10,20,.35);border-left:1px solid var(--line-soft)}
+.caso-vis svg{width:100%;max-height:150px}
+@media(max-width:700px){
+  .caso-card{grid-template-columns:1fr}
+  .caso-vis{border-left:none;border-top:1px solid var(--line-soft)}
+  .casos-hdr,.casos-bd{padding-left:16px;padding-right:16px}
+}
+
+/* ---------- Section frame ---------- */
+.point{padding:30px 0;scroll-margin-top:84px}
+.point-head{display:flex;align-items:flex-end;gap:18px;margin-bottom:26px;flex-wrap:wrap}
+.pnum{font-family:'Space Grotesk';font-weight:700;font-size:1rem;color:#04121f;background:var(--cyan-bright);
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:none;box-shadow:0 8px 22px -8px var(--cyan-bright)}
+.point-head .meta{flex:1;min-width:240px}
+.kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:6px}
+.point-head h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
+
+.card{background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+.card h3{font-size:1.12rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.card h3 .ic{color:var(--cyan-bright)}
+.card p{color:var(--muted);margin:0 0 14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+.bullets{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--ink);font-size:.94rem}
+.bullets li .dot{color:var(--cyan-bright);flex:none;margin-top:3px}
+.note{margin-top:18px;border-radius:12px;padding:14px 16px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25)}
+.note b{color:var(--amber);display:block;font-size:.82rem;letter-spacing:.04em;margin-bottom:4px;text-transform:uppercase}
+.note span{color:var(--muted);font-size:.9rem}
+
+/* application sub-cards */
+.app{background:linear-gradient(180deg,var(--panel-2),var(--bg-2));border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .2s,border-color .2s}
+.app:hover{transform:translateY(-4px);border-color:var(--cyan)}
+.app .badge{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;
+  background:rgba(56,189,248,.12);color:var(--cyan-bright)}
+.app h4{font-size:.98rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+.app ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.app li{color:var(--muted);font-size:.88rem;display:flex;gap:8px}
+.app li::before{content:"▸";color:var(--cyan)}
+
+/* article body */
+.body{color:var(--muted);font-size:.97rem}
+.body p{margin:0 0 14px}
+.body strong{color:var(--ink);font-weight:600}
+
+/* chart */
+.chartwrap{position:relative;border:1px solid var(--line-soft);border-radius:14px;padding:16px;background:var(--bg-2);overflow:hidden}
+.tags{display:flex;gap:10px;margin-top:14px}
+.tag{font-size:.74rem;font-weight:700;letter-spacing:.06em;padding:6px 14px;border-radius:8px}
+.tag.buy{background:rgba(52,211,153,.14);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.tag.sell{background:rgba(248,113,113,.14);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+
+/* pros / cons */
+.pc{border-radius:12px;overflow:hidden;border:1px solid var(--line-soft)}
+.pc .hd{padding:10px 16px;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.pc.pro .hd{background:linear-gradient(90deg,var(--green-deep),#10b981);color:#04140d}
+.pc.con .hd{background:linear-gradient(90deg,var(--red-deep),#dc2626);color:#fff}
+.pc ul{list-style:none;margin:0;padding:14px 16px;display:grid;gap:11px;background:var(--bg-2)}
+.pc li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--ink)}
+.pc.pro li .m{color:var(--green)}
+.pc.con li .m{color:var(--red)}
+
+/* ml list */
+.mlist{display:grid;gap:12px}
+.mrow{display:flex;gap:14px;align-items:flex-start;padding:13px 14px;border:1px solid var(--line-soft);border-radius:12px;background:var(--bg-2);transition:border-color .2s,transform .2s}
+.mrow:hover{border-color:var(--cyan);transform:translateX(4px)}
+.mrow .ic{color:var(--cyan-bright);flex:none}
+.mrow b{display:block;font-size:.95rem;color:var(--ink);font-family:'Space Grotesk';font-weight:500}
+.mrow span{font-size:.84rem;color:var(--muted-2)}
+
+/* eth/reg two cols */
+.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.subhd{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+
+/* future image panel */
+.future-vis{border-radius:16px;border:1px solid var(--line);min-height:100%;position:relative;overflow:hidden;
+  background:radial-gradient(120% 120% at 80% 10%,rgba(14,165,233,.3),transparent 55%),linear-gradient(160deg,#0a1730,#060d1d)}
+.future-vis .skyline{position:absolute;bottom:0;left:0;right:0;height:55%;
+  background:repeating-linear-gradient(90deg,rgba(56,189,248,.18) 0 4px,transparent 4px 16px);
+  mask-image:linear-gradient(180deg,transparent,#000);opacity:.6}
+
+/* siguiente btn */
+.next-bar{margin-top:30px;display:flex;justify-content:flex-end}
+.next-btn{display:inline-flex;align-items:center;gap:10px;background:rgba(56,189,248,.08);border:1px solid var(--line);
+  color:var(--cyan-bright);font-weight:600;padding:12px 22px;border-radius:12px;cursor:pointer;font-family:'Inter';font-size:.92rem;
+  transition:background .2s,transform .15s,border-color .2s}
+.next-btn:hover{background:rgba(56,189,248,.16);border-color:var(--cyan);transform:translateX(4px)}
+.next-btn svg{transition:transform .2s}
+.next-btn:hover svg{transform:translateX(4px)}
+
+/* conclusion + comment + resources */
+.final{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:22px;margin-top:10px}
+.comment textarea{width:100%;min-height:96px;resize:vertical;background:var(--bg-2);border:1px solid var(--line-soft);
+  border-radius:12px;padding:12px 14px;color:var(--ink);font-family:'Inter';font-size:.92rem;margin-bottom:6px}
+.comment input{width:100%;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;
+  padding:11px 14px;color:var(--ink);font-family:'Inter';font-size:.92rem;margin-bottom:10px}
+.comment textarea:focus,.comment input:focus{border-color:var(--cyan);outline:none}
+.send{background:linear-gradient(135deg,var(--cyan-deep),var(--cyan-bright));color:#04121f;border:none;font-weight:700;
+  padding:11px 20px;border-radius:10px;cursor:pointer;font-family:'Inter';font-size:.9rem}
+.send:hover{filter:brightness(1.08)}
+.cfeed{margin-top:18px;display:grid;gap:10px}
+.citem{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:10px;padding:11px 14px;font-size:.88rem}
+.citem b{color:var(--cyan-bright);font-size:.82rem}
+.citem p{margin:4px 0 0;color:var(--muted)}
+.res a{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--line-soft);border-radius:12px;
+  background:var(--bg-2);margin-bottom:12px;transition:border-color .2s,transform .2s}
+.res a:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.res .ic{color:var(--cyan-bright);flex:none}
+.res b{display:block;font-size:.95rem}
+.res span{font-size:.82rem;color:var(--muted-2)}
+
+/* footer */
+footer{border-top:1px solid var(--line-soft);margin-top:50px;padding:28px 0}
+.foot{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.socials{display:flex;gap:8px;margin-left:6px}
+.socials a{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--muted);
+  border:1px solid var(--line-soft);transition:color .2s,border-color .2s}
+.socials a:hover{color:var(--cyan-bright);border-color:var(--cyan)}
+.foot .fnav{display:flex;gap:18px;margin:0 auto}
+.foot .fnav a{font-size:.85rem;color:var(--muted)}
+.foot .fnav a:hover{color:var(--ink)}
+.copyr{font-size:.78rem;color:var(--muted-2)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* toast */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
+  background:var(--panel-2);border:1px solid var(--cyan);color:var(--ink);padding:12px 20px;border-radius:12px;
+  font-size:.9rem;z-index:120;transition:opacity .3s,transform .3s;box-shadow:var(--shadow)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .menu,.subscribe{display:none}
+  .burger{display:grid}
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .hero-visual{order:-1;min-height:260px}
+  .grid-2,.grid-3,.final,.subgrid{grid-template-columns:1fr}
+  .foot .fnav{order:3;margin:0}
+}
+@media (max-width:560px){
+  .nav{gap:14px}
+  .point-head h2{font-size:1.4rem}
+}
+/* mobile menu drawer */
+#drawer{display:none;position:fixed;inset:0;z-index:80;background:rgba(6,10,20,.96);backdrop-filter:blur(8px);
+  flex-direction:column;padding:80px 28px;gap:6px}
+#drawer.open{display:flex}
+#drawer a{font-family:'Space Grotesk';font-size:1.3rem;padding:14px 0;border-bottom:1px solid var(--line-soft);color:var(--ink)}
+#drawer .close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--ink);font-size:2rem;cursor:pointer}
+
+/* ---------- Citation superscripts ---------- */
+sup.cita{font-size:.62rem;color:var(--cyan-bright);cursor:pointer;margin-left:3px;font-family:'Space Grotesk';font-weight:700;vertical-align:super;line-height:0;opacity:.8;transition:opacity .15s;text-decoration:none}
+sup.cita:hover{opacity:1}
+
+/* ---------- Bibliografía modal ---------- */
+.bib-overlay{display:none;position:fixed;inset:0;z-index:95;background:rgba(6,10,20,.88);backdrop-filter:blur(10px);overflow-y:auto;padding:28px 16px}
+.bib-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.bib-panel{width:100%;max-width:820px;margin:auto;background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 100px -20px rgba(0,0,0,.88);animation:panel-in .28s ease}
+.bib-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:26px 30px 18px;border-bottom:1px solid var(--line-soft)}
+.bib-hdr h2{font-size:1.4rem;font-weight:700;text-transform:uppercase;margin-top:6px}
+.bib-body{padding:22px 30px 28px;display:grid;gap:22px}
+.bib-section{}
+.bib-sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+.bib-sec-title{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);font-weight:700}
+.bib-sec-tag{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:rgba(56,189,248,.1);color:var(--cyan-bright);border:1px solid rgba(56,189,248,.22)}
+.bib-entry{display:flex;gap:14px;padding:12px 14px;border:1px solid var(--line-soft);border-radius:12px;background:var(--bg-2);margin-bottom:8px;transition:border-color .2s,background .2s}
+.bib-entry:hover{border-color:rgba(56,189,248,.35)}
+.bib-entry.bib-hl{border-color:var(--cyan-bright);background:rgba(34,211,238,.06)}
+.bib-num{font-family:'Space Grotesk';font-weight:700;color:var(--cyan-bright);font-size:.95rem;min-width:28px;flex:none;padding-top:1px}
+.bib-text{font-size:.88rem;color:var(--muted);line-height:1.65}
+.bib-text strong{color:var(--ink)}
+.bib-text em{font-style:italic}
+.bib-text a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px;word-break:break-all}
+.bib-text a:hover{color:var(--cyan-bright)}
+@media(max-width:700px){.bib-hdr,.bib-body{padding-left:16px;padding-right:16px}}
+
+/* ---------- Entry / login modal ---------- */
+.entry-overlay{display:flex;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(900px 600px at 70% 0%,rgba(14,165,233,.18),transparent 55%),radial-gradient(700px 500px at -5% 50%,rgba(34,211,238,.1),transparent 60%),var(--bg)}
+.entry-overlay.hidden{display:none}
+.entry-panel{width:100%;max-width:460px;background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:22px;padding:38px 34px;box-shadow:0 40px 100px -20px rgba(0,0,0,.9)}
+.ep-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.ep-badge{display:inline-flex;align-items:center;gap:7px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:12px;padding:5px 12px;border:1px solid var(--line);border-radius:30px;background:rgba(14,165,233,.06)}
+.ep-sub{color:var(--muted);font-size:.88rem;margin:0 0 22px;line-height:1.6}
+.entry-inp{width:100%;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:13px 16px;color:var(--ink);font-family:'Inter';font-size:.93rem;margin-bottom:11px;transition:border-color .2s;box-sizing:border-box}
+.entry-inp:focus{border-color:var(--cyan);outline:none}
+.entry-inp::placeholder{color:var(--muted-2)}
+.entry-err{color:var(--red);font-size:.84rem;margin-bottom:10px;padding:9px 14px;border-radius:9px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);display:none;line-height:1.5}
+.entry-err.show{display:block}
+.entry-btn{width:100%;background:linear-gradient(135deg,var(--cyan-deep),var(--cyan-bright));color:#04121f;border:none;font-weight:700;padding:14px;border-radius:12px;cursor:pointer;font-family:'Inter';font-size:.98rem;margin-top:4px;box-shadow:0 8px 24px -8px rgba(34,211,238,.6);transition:transform .15s,box-shadow .2s}
+.entry-btn:hover{transform:translateY(-1px);box-shadow:0 14px 32px -8px rgba(34,211,238,.8)}
+
+/* ---------- Ver más comments ---------- */
+.ver-mas-btn{width:100%;padding:11px;margin-top:6px;background:rgba(56,189,248,.07);border:1px solid var(--line-soft);border-radius:10px;color:var(--cyan-bright);font-weight:600;font-size:.86rem;cursor:pointer;font-family:'Inter';transition:background .15s,border-color .15s}
+.ver-mas-btn:hover{background:rgba(56,189,248,.14);border-color:rgba(56,189,248,.35)}
+.citem .citem-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.citem .corg{font-size:.72rem;color:var(--cyan);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);border-radius:5px;padding:1px 7px}
+.citem .cdate{font-size:.7rem;color:var(--muted-2)}
+
+/* ---------- P7 roadmap ---------- */
+.roadmap-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0}
+@media(max-width:700px){.roadmap-wrap svg{min-width:580px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="IA Finanzas Blog inicio">
+      <svg class="logo" viewBox="0 0 48 48" fill="none"><path d="M24 4C15 4 9 10 9 18c0 4 2 7 2 10 0 5-2 6-2 9 0 4 5 7 11 7h8c6 0 11-3 11-7 0-3-2-4-2-9 0-3 2-6 2-10 0-8-6-14-15-14Z" stroke="#38bdf8" stroke-width="2"/><circle cx="18" cy="20" r="2.4" fill="#22d3ee"/><circle cx="30" cy="20" r="2.4" fill="#22d3ee"/><path d="M18 28h12M24 20v10" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>
+      <span style="line-height:1.1"><b>IA FINANZAS</b><span>BLOG</span></span>
+    </a>
+    <div class="menu" id="menu">
+      <a href="#top" class="active">Inicio</a>
+      <a href="#p1">Temas</a>
+      <a href="#p2">Tendencias</a>
+      <a href="#" onclick="openBiblio();return false">Recursos</a>
+      <a href="#opinas">Grupo</a>
+    </div>
+    <button class="icon-btn" aria-label="Buscar" onclick="toast('La búsqueda llegará pronto 🔍')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg>
+    </button>
+    <button class="subscribe" onclick="document.getElementById('opinas').scrollIntoView()">Deja tu Opinión</button>
+    <button class="icon-btn burger" aria-label="Menú" onclick="document.getElementById('drawer').classList.add('open')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</header>
+
+<div id="drawer">
+  <button class="close" aria-label="Cerrar" onclick="this.parentElement.classList.remove('open')">×</button>
+  <a href="#top" onclick="closeDrawer()">Inicio</a>
+  <a href="#p1" onclick="closeDrawer()">¿Qué es la IA en finanzas?</a>
+  <a href="#p2" onclick="closeDrawer()">Trading algorítmico</a>
+  <a href="#p3" onclick="closeDrawer()">Análisis predictivo</a>
+  <a href="#p4" onclick="closeDrawer()">Ventajas y desventajas</a>
+  <a href="#p5" onclick="closeDrawer()">Seguridad financiera</a>
+  <a href="#p6" onclick="closeDrawer()">Ética y regulación</a>
+  <a href="#p7" onclick="closeDrawer()">El futuro</a>
+  <a href="#" onclick="openBiblio();closeDrawer();return false">Recursos</a>
+</div>
+
+<main class="wrap" id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div>
+      <span class="eyebrow">● Inteligencia Artificial · Finanzas</span>
+      <h1>IA y finanzas:<br>el futuro del <span class="glow">dinero</span> ya está aquí</h1>
+      <p class="lead">Descubre cómo la Inteligencia Artificial está revolucionando la banca, las inversiones y la forma en que gestionamos nuestro dinero.</p>
+      <button class="cta" onclick="goExplore()">
+        Explorar Blog
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="hero-visual">
+      <div class="grid-bg"></div>
+      <div class="globe-container">
+        <div class="globe-ring globe-ring-1"></div>
+        <div class="globe-ring globe-ring-2"></div>
+        <svg class="globe-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="globeGrad" cx="38%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="rgba(125,211,252,.9)"/>
+              <stop offset="45%" stop-color="rgba(14,165,233,.3)"/>
+              <stop offset="100%" stop-color="rgba(7,89,133,.08)"/>
+            </radialGradient>
+            <radialGradient id="glowBg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(34,211,238,.22)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <clipPath id="globeClip"><circle cx="110" cy="110" r="96"/></clipPath>
+            <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Outer halo -->
+          <circle cx="110" cy="110" r="108" fill="url(#glowBg)"/>
+          <!-- Sphere body -->
+          <circle cx="110" cy="110" r="96" fill="url(#globeGrad)"/>
+          <!-- Grid lines & network (clipped to sphere) -->
+          <g clip-path="url(#globeClip)">
+            <!-- Latitude parallels -->
+            <ellipse cx="110" cy="50"  rx="52"  ry="9"  fill="none" stroke="rgba(56,189,248,.13)" stroke-width="1"/>
+            <ellipse cx="110" cy="74"  rx="82"  ry="14" fill="none" stroke="rgba(56,189,248,.22)" stroke-width="1"/>
+            <ellipse cx="110" cy="110" rx="96"  ry="22" fill="none" stroke="rgba(56,189,248,.3)"  stroke-width="1.2"/>
+            <ellipse cx="110" cy="146" rx="82"  ry="14" fill="none" stroke="rgba(56,189,248,.22)" stroke-width="1"/>
+            <ellipse cx="110" cy="170" rx="52"  ry="9"  fill="none" stroke="rgba(56,189,248,.13)" stroke-width="1"/>
+            <!-- Rotating meridians -->
+            <g class="merid-a"><ellipse cx="110" cy="110" rx="28" ry="96" fill="none" stroke="rgba(56,189,248,.2)"  stroke-width="1"/></g>
+            <g class="merid-b"><ellipse cx="110" cy="110" rx="62" ry="96" fill="none" stroke="rgba(56,189,248,.18)" stroke-width="1"/></g>
+            <g class="merid-c"><ellipse cx="110" cy="110" rx="90" ry="96" fill="none" stroke="rgba(56,189,248,.18)" stroke-width="1"/></g>
+            <!-- Financial hub connections -->
+            <path class="globe-conn conn-1" d="M82,84 Q106,70 136,78"   fill="none" stroke="rgba(34,211,238,.6)"  stroke-width="1.2" stroke-dasharray="5 4"/>
+            <path class="globe-conn conn-2" d="M136,78 Q150,90 158,106" fill="none" stroke="rgba(34,211,238,.6)"  stroke-width="1.2" stroke-dasharray="5 4"/>
+            <path class="globe-conn conn-3" d="M74,114 Q106,118 144,122" fill="none" stroke="rgba(52,211,153,.5)" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <!-- Hub: Americas -->
+            <circle cx="82"  cy="84"  r="5"   fill="rgba(34,211,238,.18)" filter="url(#dotGlow)"/>
+            <circle cx="82"  cy="84"  r="2.8" fill="rgba(34,211,238,1)"/>
+            <!-- Hub: Europe -->
+            <circle cx="136" cy="78"  r="4.5" fill="rgba(34,211,238,.18)" filter="url(#dotGlow)"/>
+            <circle cx="136" cy="78"  r="2.5" fill="rgba(34,211,238,1)"/>
+            <!-- Hub: Asia-Pacific -->
+            <circle cx="158" cy="106" r="5"   fill="rgba(34,211,238,.18)" filter="url(#dotGlow)"/>
+            <circle cx="158" cy="106" r="2.8" fill="rgba(34,211,238,1)"/>
+            <!-- Secondary hubs -->
+            <circle cx="74"  cy="114" r="2.8" fill="rgba(52,211,153,.9)"/>
+            <circle cx="144" cy="122" r="2.8" fill="rgba(52,211,153,.9)"/>
+          </g>
+          <!-- Sphere border -->
+          <circle cx="110" cy="110" r="96" fill="none" stroke="rgba(56,189,248,.5)" stroke-width="1.2"/>
+          <!-- Specular highlight -->
+          <ellipse cx="82" cy="76" rx="26" ry="16" fill="rgba(255,255,255,.07)" transform="rotate(-25,82,76)"/>
+        </svg>
+      </div>
+      <div class="chip price"><div class="big">$ 25,612.18</div><div class="up">▲ +2.35%</div></div>
+      <div class="chip market"><div class="lbl">Mercado global</div><div class="up">▲ +3.45%</div></div>
+    </div>
+  </section>
+
+  <!-- ============ PUNTO 1 ============ -->
+  <section class="point" id="p1">
+    <div class="point-head reveal">
+      <div class="pnum">01</div>
+      <div class="meta">
+        <div class="kicker">Fundamentos</div>
+        <h2>¿Qué es la IA en las finanzas?</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3><span class="ic">⚡</span>Las máquinas que entienden el dinero</h3>
+        <div class="body">
+          <p>La <strong>Inteligencia Artificial</strong> utiliza algoritmos y modelos matemáticos para procesar grandes cantidades de datos y extraer información útil. En finanzas se emplea para automatizar procesos, detectar patrones y mejorar la toma de decisiones.<sup class="cita" onclick="openBiblio(1)" title="OECD, 2024">[1]</sup></p>
+          <p>Gracias al <strong>aprendizaje automático (Machine Learning)</strong>, los sistemas pueden aprender de experiencias anteriores y mejorar su desempeño con el tiempo. En lugar de seguir reglas fijas, un modelo de IA <strong>aprende de millones de operaciones pasadas</strong> para anticipar lo que podría ocurrir, desde aprobar un crédito hasta señalar un movimiento sospechoso en tu cuenta.<sup class="cita" onclick="openBiblio(5)" title="IBM, 2024">[5]</sup></p>
+        </div>
+        <ul class="bullets">
+          <li><span class="dot">◆</span>Análisis de grandes volúmenes de datos financieros</li>
+          <li><span class="dot">◆</span>Detección de fraudes y actividades sospechosas</li>
+          <li><span class="dot">◆</span>Evaluación automatizada de riesgos crediticios</li>
+          <li><span class="dot">◆</span>Predicción de tendencias del mercado</li>
+          <li><span class="dot">◆</span>Atención personalizada mediante chatbots y asistentes virtuales</li>
+          <li><span class="dot">◆</span>Automatización de procesos administrativos</li>
+        </ul>
+        <div class="note"><b>Dato curioso</b><span>Algunos bancos utilizan IA para aprobar préstamos en cuestión de segundos, analizando miles de variables al instante. Estas aplicaciones permiten que las instituciones financieras tomen decisiones más rápidas y precisas.<sup class="cita" onclick="openBiblio(6)" title="Microsoft AI Blog, 2024">[6]</sup></span></div>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-bottom:18px"><span class="ic">⬡</span>Aplicaciones de la IA</h3>
+        <div class="grid-3" style="gap:14px">
+          <div class="app">
+            <div class="badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-4-.8L3 21l1.9-4a8.4 8.4 0 1 1 16-5.5Z"/></svg></div>
+            <h4>Banca inteligente</h4>
+            <ul><li>Chatbots</li><li>Atención 24/7</li><li>Evaluación de créditos</li></ul>
+          </div>
+          <div class="app">
+            <div class="badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h4>Inversiones inteligentes</h4>
+            <ul><li>Robo-Advisors</li><li>Gestión de portafolios</li><li>Análisis de riesgos</li></ul>
+          </div>
+          <div class="app">
+            <div class="badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h4>Seguridad financiera</h4>
+            <ul><li>Detección de fraudes</li><li>Monitoreo de transacciones</li><li>Prevención de lavado</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="casos-bar reveal">
+      <button class="ver-casos-btn" onclick="openCasos('p1')">
+        <span class="pulse-dot"></span>
+        Ver Casos Reales
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p2')">Siguiente: Trading algorítmico <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 2 ============ -->
+  <section class="point" id="p2">
+    <div class="point-head reveal">
+      <div class="pnum">02</div>
+      <div class="meta">
+        <div class="kicker">Mercados</div>
+        <h2>Trading algorítmico</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3><span class="ic">📈</span>Cuando las máquinas invierten</h3>
+        <div class="body"><p>Los algoritmos analizan datos del mercado y ejecutan operaciones automáticamente, sin emociones y a una velocidad imposible para un humano. Reaccionan a una noticia o a un cambio de precio <strong>en milisegundos</strong>.</p></div>
+        <div class="chartwrap">
+          <svg viewBox="0 0 480 170" width="100%" height="150" preserveAspectRatio="none">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8" stop-opacity=".35"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,130 L40,120 80,135 120,100 160,110 200,70 240,90 280,55 320,75 360,40 400,60 440,30 480,45 L480,170 L0,170 Z" fill="url(#g1)"/>
+            <path d="M0,130 L40,120 80,135 120,100 160,110 200,70 240,90 280,55 320,75 360,40 400,60 440,30 480,45" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+            <circle cx="200" cy="70" r="4" fill="#34d399"/><circle cx="360" cy="40" r="4" fill="#34d399"/><circle cx="440" cy="30" r="4" fill="#f87171"/>
+          </svg>
+          <div class="tags"><span class="tag buy">▲ COMPRAR</span><span class="tag sell">▼ VENDER</span></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ic">⚖️</span>Ventajas y desventajas del trading con IA</h3>
+        <div class="grid-2" style="gap:14px">
+          <div class="pc pro"><div class="hd">Ventajas</div><ul>
+            <li><span class="m">✓</span>Rapidez de ejecución</li>
+            <li><span class="m">✓</span>Precisión en los datos</li>
+            <li><span class="m">✓</span>Sin emociones humanas</li>
+            <li><span class="m">✓</span>Operación 24/7</li>
+          </ul></div>
+          <div class="pc con"><div class="hd">Desventajas</div><ul>
+            <li><span class="m">✕</span>Dependencia tecnológica</li>
+            <li><span class="m">✕</span>Errores de programación</li>
+            <li><span class="m">✕</span>Pérdidas rápidas</li>
+            <li><span class="m">✕</span>Mercados volátiles</li>
+          </ul></div>
+        </div>
+        <div class="note" style="background:rgba(56,189,248,.06);border-color:var(--line)"><b style="color:var(--cyan)">En contexto</b><span>Más del 70% del volumen en las grandes bolsas ya se ejecuta mediante algoritmos automatizados.</span></div>
+      </div>
+    </div>
+    <div class="card reveal" style="margin-top:18px">
+      <h3><span class="ic">🗂️</span>Tipos de Trading Algorítmico</h3>
+      <div class="grid-2" style="gap:14px;margin-top:10px">
+        <div class="app">
+          <div class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Alta Frecuencia (HFT)</h4>
+          <ul><li>Miles de ops/segundo</li><li>Diferencias de precio mínimas</li><li>Citadel, Virtu Financial</li></ul>
+        </div>
+        <div class="app">
+          <div class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Basado en Tendencias</h4>
+          <ul><li>Identifica tendencias alcistas/bajistas</li><li>Opera siguiendo el movimiento</li><li>Reduce el sesgo emocional</li></ul>
+        </div>
+        <div class="app">
+          <div class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83" stroke-linecap="round"/></svg></div>
+          <h4>Arbitraje</h4>
+          <ul><li>Diferencias de precio entre mercados</li><li>Operaciones simultáneas</li><li>Beneficio casi sin riesgo</li></ul>
+        </div>
+        <div class="app">
+          <div class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 1 0 16M12 2a8 8 0 0 0 0 16M12 2v16M2 12h20" stroke-linecap="round"/></svg></div>
+          <h4>Basado en IA</h4>
+          <ul><li>Machine Learning y Deep Learning</li><li>Aprende patrones complejos</li><li>Adapta estrategias dinámicamente</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="casos-bar reveal">
+      <button class="ver-casos-btn" onclick="openCasos('p2')">
+        <span class="pulse-dot"></span>
+        Ver Casos Reales
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p3')">Siguiente: Análisis predictivo <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 3 ============ -->
+  <section class="point" id="p3">
+    <div class="point-head reveal">
+      <div class="pnum">03</div>
+      <div class="meta">
+        <div class="kicker">Predicción</div>
+        <h2>Análisis predictivo</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3><span class="ic">🔮</span>¿Puede la IA predecir el mercado?</h3>
+        <div class="body"><p>La IA analiza grandes volúmenes de datos para predecir tendencias y comportamientos futuros. No adivina el futuro, pero <strong>estima probabilidades</strong> con una base de datos que ningún analista podría procesar a mano.</p>
+        <p>Combina precios históricos, noticias, redes sociales e indicadores económicos para construir un panorama de lo que es <strong>más probable que suceda</strong>.</p></div>
+        <div class="note"><b>Limitación importante</b><span>La IA no puede prever eventos inesperados: crisis financieras, pandemias, guerras o cambios políticos abruptos. Debe complementar, no reemplazar, el juicio humano.</span></div>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-bottom:18px"><span class="ic">🧠</span>Las técnicas detrás de la predicción</h3>
+        <div class="mlist">
+          <div class="mrow"><span class="ic">◈</span><div><b>Machine Learning</b><span>Aprende de datos históricos para mejorar con el tiempo.</span></div></div>
+          <div class="mrow"><span class="ic">⬡</span><div><b>Redes neuronales</b><span>Detectan patrones complejos y no lineales.</span></div></div>
+          <div class="mrow"><span class="ic">📰</span><div><b>Análisis de noticias (NLP)</b><span>Interpreta el lenguaje para entender el contexto del mercado.</span></div></div>
+          <div class="mrow"><span class="ic">📊</span><div><b>Predicción de tendencias</b><span>Pronósticos más precisos sobre la dirección del precio.</span></div></div>
+          <div class="mrow"><span class="ic">🗄️</span><div><b>Big Data</b><span>Procesamiento masivo de datos de múltiples fuentes: bolsas, noticias, redes sociales e indicadores económicos en simultáneo.</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="casos-bar reveal">
+      <button class="ver-casos-btn" onclick="openCasos('p3')">
+        <span class="pulse-dot"></span>
+        Ver Casos Reales
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p4')">Siguiente: Ventajas y desventajas <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 4 ============ -->
+  <section class="point" id="p4">
+    <div class="point-head reveal">
+      <div class="pnum">04</div>
+      <div class="meta">
+        <div class="kicker">Balance</div>
+        <h2>Ventajas y desventajas de la IA en finanzas</h2>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="grid-2" style="gap:18px">
+        <div class="pc pro"><div class="hd">Ventajas</div><ul>
+          <li><span class="m">✓</span>Toma de decisiones en tiempo real: créditos aprobados en segundos<sup class="cita" onclick="openBiblio(2)" title="IMF, 2024">[2]</sup></li>
+          <li><span class="m">✓</span>Mayor velocidad y menor margen de error en procesos críticos</li>
+          <li><span class="m">✓</span>Detección temprana de fraudes y actividades sospechosas</li>
+          <li><span class="m">✓</span>Optimización del capital: los bancos reducen pérdidas al anticipar el mercado<sup class="cita" onclick="openBiblio(1)" title="OECD, 2024">[1]</sup></li>
+          <li><span class="m">✓</span>Personalización de servicios financieros según el perfil de cada cliente</li>
+          <li><span class="m">✓</span>Reducción de costos operativos por automatización de tareas rutinarias</li>
+          <li><span class="m">✓</span>Disponibilidad 24/7 sin interrupciones</li>
+        </ul></div>
+        <div class="pc con"><div class="hd">Desventajas</div><ul>
+          <li><span class="m">✕</span>Riesgo sistémico: si muchos bancos usan modelos similares, pueden desestabilizar los mercados al reaccionar igual<sup class="cita" onclick="openBiblio(4)" title="BIS, 2023">[4]</sup></li>
+          <li><span class="m">✕</span>Problemas de explicabilidad: algunos modelos no justifican claramente sus decisiones (caja negra)</li>
+          <li><span class="m">✕</span>Sesgos algorítmicos y posible discriminación si los datos de entrenamiento contienen prejuicios</li>
+          <li><span class="m">✕</span>Dependencia de datos históricos: la IA puede fallar ante crisis completamente nuevas</li>
+          <li><span class="m">✕</span>Brecha tecnológica: instituciones pequeñas en desventaja frente a grandes bancos</li>
+          <li><span class="m">✕</span>Riesgos de privacidad y ciberseguridad</li>
+          <li><span class="m">✕</span>Impacto laboral en puestos de trabajo repetitivos</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p5')">Siguiente: Seguridad financiera <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 5 ============ -->
+  <section class="point" id="p5">
+    <div class="point-head reveal">
+      <div class="pnum">05</div>
+      <div class="meta">
+        <div class="kicker">Protección</div>
+        <h2>IA y seguridad financiera</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3><span class="ic">🛡️</span>La IA protege tu dinero</h3>
+        <div class="body" style="margin-bottom:14px"><p>A diferencia de los sistemas tradicionales, la IA no solo detecta fraudes conocidos, sino que puede identificar <strong>patrones nuevos o desconocidos</strong>, clave en un entorno donde los métodos de fraude evolucionan constantemente.<sup class="cita" onclick="openBiblio(7)" title="ISO/IEC 27001, 2022">[7]</sup></p></div>
+        <ul class="bullets">
+          <li><span class="dot">✓</span>Detección de fraude en tiempo real</li>
+          <li><span class="dot">✓</span>Identificación de patrones conocidos y desconocidos</li>
+          <li><span class="dot">✓</span>Prevención de lavado de dinero</li>
+          <li><span class="dot">✓</span>Monitoreo continuo de cuentas y transacciones</li>
+        </ul>
+        <div style="margin-top:16px">
+          <div class="subhd" style="font-size:.68rem;margin-bottom:10px">Factores analizados por el sistema</div>
+          <div class="grid-2" style="gap:8px">
+            <div class="mrow" style="padding:9px 12px"><span class="ic">⚡</span><div><b>Velocidad y frecuencia</b><span>de cada transacción realizada</span></div></div>
+            <div class="mrow" style="padding:9px 12px"><span class="ic">📍</span><div><b>Ubicación geográfica</b><span>del usuario en tiempo real</span></div></div>
+            <div class="mrow" style="padding:9px 12px"><span class="ic">📱</span><div><b>Dispositivo utilizado</b><span>para acceder a la cuenta</span></div></div>
+            <div class="mrow" style="padding:9px 12px"><span class="ic">📊</span><div><b>Historial de comportamiento</b><span>y patrones de gasto previos</span></div></div>
+          </div>
+        </div>
+        <div class="note" style="background:rgba(56,189,248,.06);border-color:var(--line);margin-top:14px"><b style="color:var(--cyan)">Scoring de riesgo dinámico</b><span>Cada transacción recibe una <strong>puntuación de riesgo en milisegundos</strong>. Si supera el umbral definido, el sistema bloquea la operación, alerta al usuario o solicita verificación adicional al instante.</span></div>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ic">🔐</span>Cómo funciona la defensa</h3>
+        <div class="body">
+          <p>Cada vez que usas tu tarjeta, un modelo evalúa decenas de señales: <strong>lugar, hora, monto y hábitos previos</strong>. Si algo se sale del patrón, el sistema actúa de inmediato.</p>
+          <p>Lo más potente es que <strong>mejora con cada intento de fraude</strong>: cada ataque enseña al sistema a reconocer el siguiente con más precisión.</p>
+        </div>
+        <div class="mlist" style="margin-top:8px">
+          <div class="mrow"><span class="ic">①</span><div><b>Observa</b><span>Registra el comportamiento normal de cada cuenta.</span></div></div>
+          <div class="mrow"><span class="ic">②</span><div><b>Detecta</b><span>Marca cualquier anomalía frente a ese patrón.</span></div></div>
+          <div class="mrow"><span class="ic">③</span><div><b>Reacciona</b><span>Bloquea, alerta o pide verificación al instante.</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p6')">Siguiente: Ética y regulación <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 6 ============ -->
+  <section class="point" id="p6">
+    <div class="point-head reveal">
+      <div class="pnum">06</div>
+      <div class="meta">
+        <div class="kicker">Responsabilidad</div>
+        <h2>Aspectos éticos y regulatorios</h2>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="subgrid">
+        <div>
+          <div class="subhd">Éticos</div>
+          <div class="mlist">
+            <div class="mrow"><span class="ic">◈</span><div><b>IA Explicable (XAI)</b><span>Modelos que justifican sus decisiones de forma comprensible y auditable por humanos.<sup class="cita" onclick="openBiblio(8)" title="ISACA, 2019">[8]</sup></span></div></div>
+            <div class="mrow"><span class="ic">🔒</span><div><b>Privacidad de datos</b><span>Protección estricta de la información financiera personal.<sup class="cita" onclick="openBiblio(7)" title="ISO/IEC 27001, 2022">[7]</sup></span></div></div>
+            <div class="mrow"><span class="ic">⚖️</span><div><b>Equidad</b><span>Las decisiones automatizadas en créditos pueden generar discriminación indirecta si el modelo está mal diseñado.</span></div></div>
+            <div class="mrow"><span class="ic">✔</span><div><b>Responsabilidad</b><span>¿Quién responde legalmente por los errores de un sistema de IA?</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="subhd">Regulatorios</div>
+          <div class="mlist">
+            <div class="mrow"><span class="ic">🔍</span><div><b>Auditorías de algoritmos</b><span>Revisar y validar cómo operan los modelos usados en banca y trading.<sup class="cita" onclick="openBiblio(8)" title="ISACA COBIT, 2019">[8]</sup></span></div></div>
+            <div class="mrow"><span class="ic">🛡</span><div><b>Protección de datos financieros</b><span>Normas estrictas sobre almacenamiento y uso de información personal.<sup class="cita" onclick="openBiblio(7)" title="ISO/IEC 27001, 2022">[7]</sup></span></div></div>
+            <div class="mrow"><span class="ic">⚖️</span><div><b>Responsabilidad legal</b><span>Marco jurídico claro para decisiones automatizadas que afecten a usuarios.</span></div></div>
+            <div class="mrow"><span class="ic">🚫</span><div><b>Supervisión de modelos</b><span>Control sobre sistemas de IA utilizados en decisiones financieras críticas.</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:20px"><b>Desafío actual</b><span>Lograr un equilibrio entre innovación tecnológica y protección del usuario. Los gobiernos y organismos financieros ya exigen mayor transparencia, auditorías de algoritmos y responsabilidad legal en decisiones automatizadas.<sup class="cita" onclick="openBiblio(3)" title="WEF, 2024">[3]</sup></span></div>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('p7')">Siguiente: El futuro <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ PUNTO 7 ============ -->
+  <section class="point" id="p7">
+    <div class="point-head reveal">
+      <div class="pnum">07</div>
+      <div class="meta">
+        <div class="kicker">Horizonte</div>
+        <h2>El futuro de la IA en las finanzas</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="mlist">
+          <div class="mrow"><span class="ic">🤖</span><div><b>Robo-Advisors masivos</b><span>Plataformas como Betterment y Wealthfront ya gestionan portafolios automáticamente. El próximo paso: acceso desde cualquier teléfono móvil.</span></div></div>
+          <div class="mrow"><span class="ic">⚙️</span><div><b>Automatización bancaria total</b><span>Créditos, atención, inversiones y cumplimiento regulatorio gestionados por IA en tiempo real sin intervención humana.</span></div></div>
+          <div class="mrow"><span class="ic">✦</span><div><b>IA generativa en finanzas</b><span>Elaboración automática de modelos financieros, presentaciones y reportes complejos que antes requerían días de trabajo analista.</span></div></div>
+          <div class="mrow"><span class="ic">🧠</span><div><b>IA agéntica</b><span>Agentes autónomos que no solo analizan, sino que ejecutan inversiones, supervisan riesgos y detectan fraudes bajo vigilancia humana.</span></div></div>
+          <div class="mrow"><span class="ic">⛓️</span><div><b>IA + Blockchain</b><span>Contratos inteligentes, auditorías continuas y verificación automática de transacciones para un sistema financiero más transparente.</span></div></div>
+          <div class="mrow"><span class="ic">📡</span><div><b>Gestión de riesgos en tiempo real</b><span>Sistemas que monitorean mercados, noticias y eventos geopolíticos y ajustan estrategias automáticamente para reducir pérdidas.</span></div></div>
+        </div>
+      </div>
+      <div class="future-vis reveal">
+        <div class="grid-bg" style="opacity:.4"></div>
+        <div class="skyline"></div>
+        <div style="position:absolute;top:24px;left:24px;right:24px">
+          <div class="kicker">Próxima década</div>
+          <p style="color:var(--ink);font-family:'Space Grotesk';font-size:1.15rem;font-weight:500;margin-top:8px">Las finanzas serán predictivas, personalizadas y casi invisibles: la IA trabajará en segundo plano para que tú solo veas las decisiones que importan.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Roadmap infographic P7 -->
+    <div class="card reveal" style="margin-top:20px;padding:0;overflow:hidden">
+      <div style="padding:20px 26px 14px;border-bottom:1px solid var(--line-soft);display:flex;align-items:flex-end;gap:14px">
+        <div>
+          <div class="kicker">Hoja de Ruta · Proyección</div>
+          <h3 style="font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-top:4px;margin-bottom:0">El Futuro Financiero 2025 — 2035</h3>
+        </div>
+      </div>
+      <div style="padding:24px 26px 16px" class="roadmap-wrap">
+        <svg viewBox="0 0 900 230" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Línea de tiempo: evolución de la IA en finanzas 2025 a 2035">
+          <defs>
+            <linearGradient id="rdGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0ea5e9"/>
+              <stop offset="50%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="rgba(34,211,238,.4)"/>
+            </linearGradient>
+            <filter id="rdGlow">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- base track -->
+          <line x1="55" y1="88" x2="855" y2="88" stroke="rgba(56,189,248,.12)" stroke-width="4" stroke-linecap="round"/>
+          <!-- progress line -->
+          <line x1="55" y1="88" x2="855" y2="88" stroke="url(#rdGrad)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- ── 2025 ── -->
+          <circle cx="55" cy="88" r="14" fill="rgba(34,211,238,.12)" stroke="#22d3ee" stroke-width="2" filter="url(#rdGlow)"/>
+          <circle cx="55" cy="88" r="6" fill="#22d3ee"/>
+          <text x="55" y="62" fill="#22d3ee" font-size="12.5" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2025</text>
+          <rect x="5" y="108" width="100" height="52" rx="8" fill="rgba(34,211,238,.07)" stroke="rgba(34,211,238,.2)" stroke-width="1"/>
+          <text x="55" y="126" fill="var(--ink)" font-size="8.5" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">IA Generativa</text>
+          <text x="55" y="139" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Informes y análisis</text>
+          <text x="55" y="151" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">automáticos en banca</text>
+          <!-- ── 2027 ── -->
+          <circle cx="255" cy="88" r="12" fill="rgba(34,211,238,.1)" stroke="rgba(34,211,238,.7)" stroke-width="2"/>
+          <circle cx="255" cy="88" r="5.5" fill="rgba(34,211,238,.9)"/>
+          <text x="255" y="62" fill="rgba(34,211,238,.88)" font-size="12.5" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2027</text>
+          <rect x="205" y="108" width="100" height="52" rx="8" fill="rgba(34,211,238,.06)" stroke="rgba(34,211,238,.18)" stroke-width="1"/>
+          <text x="255" y="126" fill="var(--ink)" font-size="8.5" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Robo-Advisors</text>
+          <text x="255" y="139" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Asesoramiento desde</text>
+          <text x="255" y="151" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">cualquier móvil</text>
+          <!-- ── 2029 ── -->
+          <circle cx="455" cy="88" r="12" fill="rgba(14,165,233,.1)" stroke="rgba(14,165,233,.65)" stroke-width="2"/>
+          <circle cx="455" cy="88" r="5.5" fill="rgba(14,165,233,.85)"/>
+          <text x="455" y="62" fill="rgba(14,165,233,.9)" font-size="12.5" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2029</text>
+          <rect x="405" y="108" width="100" height="52" rx="8" fill="rgba(14,165,233,.06)" stroke="rgba(14,165,233,.18)" stroke-width="1"/>
+          <text x="455" y="126" fill="var(--ink)" font-size="8.5" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Banca Autónoma</text>
+          <text x="455" y="139" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Créditos e inversiones</text>
+          <text x="455" y="151" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">sin intervención humana</text>
+          <!-- ── 2032 ── -->
+          <circle cx="655" cy="88" r="12" fill="rgba(52,211,153,.08)" stroke="rgba(52,211,153,.55)" stroke-width="2"/>
+          <circle cx="655" cy="88" r="5.5" fill="rgba(52,211,153,.8)"/>
+          <text x="655" y="62" fill="rgba(52,211,153,.88)" font-size="12.5" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2032</text>
+          <rect x="605" y="108" width="100" height="52" rx="8" fill="rgba(52,211,153,.05)" stroke="rgba(52,211,153,.18)" stroke-width="1"/>
+          <text x="655" y="126" fill="var(--ink)" font-size="8.5" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">IA Agéntica</text>
+          <text x="655" y="139" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Agentes que ejecutan</text>
+          <text x="655" y="151" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">y supervisan riesgos</text>
+          <!-- ── 2035 ── -->
+          <circle cx="855" cy="88" r="14" fill="rgba(251,191,36,.06)" stroke="rgba(251,191,36,.45)" stroke-width="2" stroke-dasharray="5 3"/>
+          <circle cx="855" cy="88" r="6" fill="rgba(251,191,36,.7)"/>
+          <text x="855" y="62" fill="rgba(251,191,36,.85)" font-size="12.5" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2035+</text>
+          <rect x="805" y="108" width="100" height="52" rx="8" fill="rgba(251,191,36,.05)" stroke="rgba(251,191,36,.18)" stroke-width="1"/>
+          <text x="855" y="126" fill="var(--ink)" font-size="8.5" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Sistema Invisible</text>
+          <text x="855" y="139" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Finanzas predictivas,</text>
+          <text x="855" y="151" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">personalizadas y silentes</text>
+          <!-- connector arrows between nodes -->
+          <text x="155" y="91" fill="rgba(56,189,248,.45)" font-size="16" font-family="Inter,sans-serif" text-anchor="middle">›</text>
+          <text x="355" y="91" fill="rgba(56,189,248,.4)" font-size="16" font-family="Inter,sans-serif" text-anchor="middle">›</text>
+          <text x="555" y="91" fill="rgba(56,189,248,.35)" font-size="16" font-family="Inter,sans-serif" text-anchor="middle">›</text>
+          <text x="755" y="91" fill="rgba(56,189,248,.3)" font-size="16" font-family="Inter,sans-serif" text-anchor="middle">›</text>
+        </svg>
+      </div>
+      <div style="padding:10px 26px 16px;border-top:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <span style="font-size:.72rem;color:var(--muted-2)">Proyecciones basadas en tendencias actuales del sector financiero y tecnológico global</span>
+        <span style="font-size:.7rem;color:var(--muted-2);white-space:nowrap">© 2026 IA Finanzas Blog — Todos los derechos reservados</span>
+      </div>
+    </div>
+
+    <div class="casos-bar reveal">
+      <button class="ver-casos-btn" onclick="openCasos('p7')">
+        <span class="pulse-dot"></span>
+        Ver Casos Reales
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="next-bar reveal"><button class="next-btn" onclick="nextPoint('conclusion')">Siguiente: Conclusión <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </section>
+
+  <!-- ============ CONCLUSIÓN + OPINIÓN + RECURSOS ============ -->
+  <section class="point" id="conclusion">
+    <div class="point-head reveal">
+      <div class="pnum">✦</div>
+      <div class="meta">
+        <div class="kicker">Cierre</div>
+        <h2>Integrantes</h2>
+      </div>
+    </div>
+    <div class="final">
+      <div class="card reveal">
+        <div class="body">
+          <p><strong>Abigail Solanilla | 8-1060-282 </strong></p>
+          <p><strong>Jaheim Jaén | 3-761-1563</strong></p>
+          <p><strong>Constantino Rodriguez | 8-1041-2494</strong></p>
+        </div>
+      </div>
+
+      <div class="card comment reveal" id="opinas">
+        <h3><span class="ic">💬</span>¿Qué opinas?</h3>
+        <p style="margin-bottom:14px">¿Crees que la IA mejorará el sistema financiero o representa un riesgo? ¡Me encantaría leerte!</p>
+        <input id="cname" type="text" placeholder="Tu nombre" maxlength="40">
+        <textarea id="ctext" placeholder="Deja tu comentario..." maxlength="400"></textarea>
+        <button class="send" onclick="addComment()">Deja tu comentario</button>
+        <div class="cfeed" id="cfeed"></div>
+      </div>
+
+      <div class="card res reveal" id="recursos">
+        <h3><span class="ic">📚</span>Recursos</h3>
+        <a href="#" onclick="openBiblio();return false"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke-linecap="round"/></svg></span><span><b>Bibliografía</b><span>Ver todas las fuentes y referencias.</span></span></a>
+        <a href="#p1" onclick="toast('Guías y aprendizaje 📖')"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0 2-1.5 5-1.5 7 0V6c-2-1.5-5-1.5-7 0Z"/><path d="M12 6v12" stroke-linecap="round"/></svg></span><span><b>Guías</b><span>Recursos para aprender más.</span></span></a>
+        <button class="cta" style="width:100%;justify-content:center;margin-top:6px;padding:12px" onclick="document.getElementById('top').scrollIntoView()">↑ Volver al inicio</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top">
+      <svg class="logo" viewBox="0 0 48 48" fill="none"><path d="M24 4C15 4 9 10 9 18c0 4 2 7 2 10 0 5-2 6-2 9 0 4 5 7 11 7h8c6 0 11-3 11-7 0-3-2-4-2-9 0-3 2-6 2-10 0-8-6-14-15-14Z" stroke="#38bdf8" stroke-width="2"/><circle cx="18" cy="20" r="2.4" fill="#22d3ee"/><circle cx="30" cy="20" r="2.4" fill="#22d3ee"/><path d="M18 28h12M24 20v10" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>
+      <span style="line-height:1.1"><b>IA FINANZAS</b><span>BLOG</span></span>
+    </a>
+    <div class="socials">
+      <a href="#" aria-label="Facebook" onclick="toast('Síguenos 👋');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.5-1.5H17V2h-3c-2.8 0-4 1.7-4 4v3H7v3h3v8h4v-8h2.5l.5-3H14Z"/></svg></a>
+      <a href="#" aria-label="Twitter" onclick="toast('Síguenos 👋');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.8 3.6A11.3 11.3 0 0 1 3.8 4.6a4 4 0 0 0 1.2 5.3c-.6 0-1.2-.2-1.7-.5a4 4 0 0 0 3.2 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18a11.3 11.3 0 0 0 17.4-10c.8-.6 1.5-1.3 2-2.2Z"/></svg></a>
+      <a href="#" aria-label="LinkedIn" onclick="toast('Síguenos 👋');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8H3v13h3.5V8ZM4.7 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM21 21h-3.5v-6.8c0-1.6-.6-2.7-2-2.7-1.1 0-1.7.7-2 1.5-.1.2-.1.6-.1.9V21H9.9V8h3.4v1.5c.5-.7 1.3-1.7 3.2-1.7 2.4 0 4.1 1.5 4.1 4.8V21Z"/></svg></a>
+      <a href="#" aria-label="Instagram" onclick="toast('Síguenos 👋');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+    </div>
+    <div class="fnav">
+      <a href="#top">Inicio</a><a href="#p1">Temas</a><a href="#p2">Tendencias</a><a href="#" onclick="openBiblio();return false">Recursos</a>
+    </div>
+    <div class="copyr">© 2026 IA Finanzas Blog. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<!-- ============ CASOS REALES MODAL ============ -->
+<div id="casos-overlay" class="casos-overlay" role="dialog" aria-modal="true" aria-labelledby="casos-title">
+  <div class="casos-panel">
+    <div class="casos-hdr">
+      <div>
+        <div class="kicker" id="casos-kicker"></div>
+        <h2 id="casos-title">Casos Reales</h2>
+      </div>
+      <button class="casos-x" onclick="closeCasos()" aria-label="Cerrar">&#x00D7;</button>
+    </div>
+    <div class="casos-bd" id="casos-bd"></div>
+  </div>
+</div>
+
+<!-- ============ ENTRY / LOGIN MODAL ============ -->
+<div id="entry-overlay" class="entry-overlay" role="dialog" aria-modal="true" aria-labelledby="entry-title">
+  <div class="entry-panel">
+    <div class="ep-head">
+      <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M24 4C15 4 9 10 9 18c0 4 2 7 2 10 0 5-2 6-2 9 0 4 5 7 11 7h8c6 0 11-3 11-7 0-3-2-4-2-9 0-3 2-6 2-10 0-8-6-14-15-14Z" stroke="#38bdf8" stroke-width="2"/><circle cx="18" cy="20" r="2.4" fill="#22d3ee"/><circle cx="30" cy="20" r="2.4" fill="#22d3ee"/><path d="M18 28h12M24 20v10" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>
+      <div>
+        <div style="font-family:'Space Grotesk';font-weight:700;font-size:1rem;letter-spacing:.03em">IA FINANZAS</div>
+        <div style="font-size:.58rem;letter-spacing:.44em;color:var(--cyan);font-weight:600">BLOG</div>
+      </div>
+    </div>
+    <div class="ep-badge">● Acceso al contenido</div>
+    <h2 id="entry-title" style="font-family:'Space Grotesk';font-size:1.4rem;font-weight:700;text-transform:uppercase;margin:0 0 8px">Bienvenido/a</h2>
+    <p class="ep-sub">Para acceder al blog e interactuar, por favor identifícate con tu nombre real y tu institución.</p>
+    <input class="entry-inp" id="entry-name" type="text" placeholder="Tu nombre completo" maxlength="70" autocomplete="name">
+    <input class="entry-inp" id="entry-org" type="text" placeholder="Universidad u organización" maxlength="90" autocomplete="organization">
+    <div class="entry-err" id="entry-err"></div>
+    <button class="entry-btn" onclick="submitEntry()">Ingresar al Blog →</button>
+  </div>
+</div>
+
+<!-- ============ BIBLIOGRAFÍA MODAL ============ -->
+<div id="bib-overlay" class="bib-overlay" role="dialog" aria-modal="true" aria-labelledby="bib-title">
+  <div class="bib-panel">
+    <div class="bib-hdr">
+      <div>
+        <div class="kicker">Fuentes y referencias académicas</div>
+        <h2 id="bib-title">Bibliografía</h2>
+      </div>
+      <button class="casos-x" onclick="closeBiblio()" aria-label="Cerrar">&#x00D7;</button>
+    </div>
+    <div class="bib-body" id="bib-body"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ---- Smooth nav + "Explorar Blog" → primer punto ---- */
+function goExplore(){ document.getElementById('p1').scrollIntoView({behavior:'smooth'}); }
+function nextPoint(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function closeDrawer(){ document.getElementById('drawer').classList.remove('open'); }
+
+/* ---- Toast ---- */
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---- Reading progress bar ---- */
+const bar=document.getElementById('progress');
+function onScroll(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+}
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+/* ---- Reveal on scroll ---- */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- Active nav highlight ---- */
+const navLinks=[...document.querySelectorAll('#menu a')];
+const map={ '#top':'#top','#p1':'#p1','#p2':'#p2','#recursos':'#recursos','#opinas':'#opinas' };
+const watchIds=['top','p1','p2','p3','p4','p5','recursos','opinas'];
+const spy=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id='#'+e.target.id;
+      navLinks.forEach(a=>a.classList.remove('active'));
+      // map current section to nearest nav item
+      let target='#top';
+      if(['p1','p2','p3','p4'].includes(e.target.id)) target = e.target.id==='p2'||e.target.id==='p3'? '#p2':'#p1';
+      else if(['p5','p6','p7'].includes(e.target.id)) target='#p2';
+      else if(e.target.id==='recursos'||e.target.id==='conclusion') target='#recursos';
+      else if(e.target.id==='opinas') target='#opinas';
+      else if(e.target.id==='top') target='#top';
+      const link=navLinks.find(a=>a.getAttribute('href')===target);
+      if(link) link.classList.add('active');
+    }
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+['top','p1','p2','p3','p4','p5','p6','p7','conclusion','recursos','opinas'].forEach(id=>{
+  const el=document.getElementById(id); if(el) spy.observe(el);
+});
+
+/* ---- Comments (localStorage persistent) ---- */
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+const INITIAL_COMMENTS=[
+  {name:'Lucía M.',org:'Universidad Nacional',text:'Me parece increíble lo de aprobar préstamos en segundos, aunque me preocupa la privacidad.',date:'01/06/2026'},
+  {name:'Andrés R.',org:'Banco Central',text:'El trading algorítmico es el futuro, pero hay que entender bien los riesgos.',date:'05/06/2026'}
+];
+const COMMENTS_LIMIT=4;
+let allComments=[];
+let showAllComments=false;
+
+function loadPersistedComments(){
+  const stored=localStorage.getItem('iafinanzas_comments');
+  const user=(stored?JSON.parse(stored):[]).reverse();
+  allComments=[...user,...INITIAL_COMMENTS];
+  renderComments();
+}
+function renderComments(){
+  const f=document.getElementById('cfeed');
+  const list=showAllComments?allComments:allComments.slice(0,COMMENTS_LIMIT);
+  f.innerHTML=list.map(c=>`
+    <div class="citem">
+      <div class="citem-meta">
+        <b>${escapeHtml(c.name)}</b>
+        ${c.org?`<span class="corg">${escapeHtml(c.org)}</span>`:''}
+        ${c.date?`<span class="cdate">${escapeHtml(c.date)}</span>`:''}
+      </div>
+      <p>${escapeHtml(c.text)}</p>
+    </div>`).join('');
+  if(!showAllComments&&allComments.length>COMMENTS_LIMIT){
+    const rem=allComments.length-COMMENTS_LIMIT;
+    f.innerHTML+=`<button class="ver-mas-btn" onclick="showMoreComments()">Ver más opiniones (${rem} más) ↓</button>`;
+  }
+}
+function showMoreComments(){ showAllComments=true; renderComments(); }
+function addComment(){
+  const n=document.getElementById('cname').value.trim();
+  const t=document.getElementById('ctext').value.trim();
+  if(!n||n.length<2){ toast('Ingresa tu nombre primero ✍️'); return; }
+  if(!t){ toast('Escribe tu comentario primero ✍️'); return; }
+  const sess=sessionStorage.getItem('iafinanzas_user');
+  const org=sess?JSON.parse(sess).org:'';
+  const entry={name:n,org:org,text:t,date:new Date().toLocaleDateString('es-ES')};
+  const stored=localStorage.getItem('iafinanzas_comments');
+  const arr=stored?JSON.parse(stored):[];
+  arr.push(entry);
+  localStorage.setItem('iafinanzas_comments',JSON.stringify(arr));
+  document.getElementById('ctext').value='';
+  showAllComments=false;
+  loadPersistedComments();
+  toast('¡Gracias por tu comentario! 💬');
+}
+loadPersistedComments();
+
+/* ---- Keyboard: Esc closes drawer + modal ---- */
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeCasos(); closeBiblio(); closeDrawer(); } });
+document.getElementById('casos-overlay').addEventListener('click',function(e){ if(e.target===this) closeCasos(); });
+document.getElementById('bib-overlay').addEventListener('click',function(e){ if(e.target===this) closeBiblio(); });
+
+/* ---- Casos Reales Data ---- */
+const SVG = {
+  coin: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <text x="8" y="16" fill="rgba(148,163,184,.7)" font-size="9" font-family="Inter,sans-serif">Tiempo de revisión de contratos legales</text>
+    <text x="8" y="44" fill="rgba(148,163,184,.75)" font-size="8.5" font-family="Inter,sans-serif">Humanos</text>
+    <rect x="72" y="31" width="170" height="18" rx="4" fill="rgba(248,113,113,.18)" stroke="rgba(248,113,113,.4)" stroke-width="1"/>
+    <rect x="72" y="31" width="170" height="18" rx="4" fill="url(#cg1)" opacity=".7"/>
+    <text x="239" y="44" fill="rgba(248,113,113,.95)" font-size="8" font-family="Inter,sans-serif" text-anchor="end">360,000 h/año</text>
+    <text x="8" y="76" fill="rgba(148,163,184,.75)" font-size="8.5" font-family="Inter,sans-serif">Con IA</text>
+    <rect x="72" y="63" width="11" height="18" rx="4" fill="rgba(34,211,238,.35)" stroke="rgba(34,211,238,.65)" stroke-width="1"/>
+    <text x="239" y="76" fill="rgba(34,211,238,.95)" font-size="8" font-family="Inter,sans-serif" text-anchor="end">segundos</text>
+    <text x="72" y="104" fill="rgba(52,211,153,.9)" font-size="9.5" font-family="Inter,sans-serif" font-weight="bold">✓ Ahorro del 99.99% del tiempo</text>
+    <defs><linearGradient id="cg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(248,113,113,.5)"/><stop offset="100%" stop-color="rgba(248,113,113,0)"/></linearGradient></defs>
+  </svg>`,
+  erica: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="22" width="108" height="72" rx="12" fill="rgba(56,189,248,.07)" stroke="rgba(56,189,248,.22)" stroke-width="1"/>
+    <text x="64" y="61" fill="#22d3ee" font-size="24" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">35M+</text>
+    <text x="64" y="77" fill="rgba(148,163,184,.8)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">Usuarios activos</text>
+    <rect x="132" y="22" width="108" height="72" rx="12" fill="rgba(56,189,248,.07)" stroke="rgba(56,189,248,.22)" stroke-width="1"/>
+    <text x="186" y="61" fill="#22d3ee" font-size="24" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">2B+</text>
+    <text x="186" y="77" fill="rgba(148,163,184,.8)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">Interacciones totales</text>
+    <text x="125" y="110" fill="rgba(148,163,184,.55)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">Bank of America — Erica</text>
+  </svg>`,
+  renaissance: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="rg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(34,211,238,.38)"/><stop offset="100%" stop-color="rgba(34,211,238,0)"/></linearGradient></defs>
+    <line x1="24" y1="12" x2="240" y2="12" stroke="rgba(56,189,248,.07)" stroke-width="1"/>
+    <line x1="24" y1="37" x2="240" y2="37" stroke="rgba(56,189,248,.07)" stroke-width="1"/>
+    <line x1="24" y1="62" x2="240" y2="62" stroke="rgba(56,189,248,.07)" stroke-width="1"/>
+    <line x1="24" y1="87" x2="240" y2="87" stroke="rgba(56,189,248,.07)" stroke-width="1"/>
+    <path d="M24,84 C55,78 85,68 115,54 C145,40 178,24 224,12" fill="none" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M24,84 C55,78 85,68 115,54 C145,40 178,24 224,12 L224,87 L24,87Z" fill="url(#rg1)"/>
+    <circle cx="224" cy="12" r="4" fill="#22d3ee"/>
+    <text x="24" y="100" fill="rgba(148,163,184,.6)" font-size="7.5" font-family="Inter,sans-serif">1988</text>
+    <text x="216" y="100" fill="rgba(148,163,184,.6)" font-size="7.5" font-family="Inter,sans-serif">2025</text>
+    <text x="108" y="30" fill="rgba(52,211,153,.9)" font-size="9" font-family="Inter,sans-serif" font-weight="bold">~66% retorno anual promedio</text>
+  </svg>`,
+  goldman: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="90" cy="57" r="42" fill="none" stroke="rgba(56,189,248,.12)" stroke-width="18"/>
+    <circle cx="90" cy="57" r="42" fill="none" stroke="#22d3ee" stroke-width="18" stroke-dasharray="212 264" stroke-dashoffset="66" stroke-linecap="round" transform="rotate(-90,90,57)"/>
+    <text x="90" y="52" fill="#22d3ee" font-size="17" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">~80%</text>
+    <text x="90" y="66" fill="rgba(148,163,184,.75)" font-size="7.5" font-family="Inter,sans-serif" text-anchor="middle">Automatizado</text>
+    <rect x="158" y="28" width="9" height="9" rx="2" fill="rgba(34,211,238,.85)"/>
+    <text x="172" y="37" fill="rgba(148,163,184,.8)" font-size="8.5" font-family="Inter,sans-serif">Algoritmos</text>
+    <rect x="158" y="46" width="9" height="9" rx="2" fill="rgba(56,189,248,.22)"/>
+    <text x="172" y="55" fill="rgba(148,163,184,.8)" font-size="8.5" font-family="Inter,sans-serif">Humanos</text>
+    <text x="158" y="80" fill="rgba(52,211,153,.75)" font-size="8" font-family="Inter,sans-serif">Mayor velocidad</text>
+    <text x="158" y="92" fill="rgba(52,211,153,.75)" font-size="8" font-family="Inter,sans-serif">y menor costo</text>
+  </svg>`,
+  hft: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <text x="125" y="16" fill="rgba(148,163,184,.7)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">Velocidad de operaciones HFT</text>
+    ${[5,8,6,10,7,9,4,10,6,8,9,7,5,10,8,6,9,7,10,6].map((h,i)=>`<rect x="${14+i*11}" y="${62-h*5}" width="8" height="${h*5}" rx="2" fill="rgba(34,211,238,${0.2+h*0.07})"/>`).join('')}
+    <text x="125" y="84" fill="#22d3ee" font-size="19" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">10,000+</text>
+    <text x="125" y="100" fill="rgba(148,163,184,.7)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">operaciones por segundo · Citadel, Virtu Financial</text>
+  </svg>`,
+  aladdin: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="ag1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs>
+    <text x="125" y="20" fill="rgba(148,163,184,.7)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">Activos gestionados por Aladdin</text>
+    <rect x="20" y="30" width="210" height="18" rx="6" fill="rgba(56,189,248,.1)" stroke="rgba(56,189,248,.18)" stroke-width="1"/>
+    <rect x="20" y="30" width="196" height="18" rx="6" fill="url(#ag1)" opacity=".82"/>
+    <text x="125" y="66" fill="#22d3ee" font-size="26" font-weight="bold" font-family="Space Grotesk,sans-serif" text-anchor="middle">$21 Billones</text>
+    <text x="125" y="82" fill="rgba(148,163,184,.75)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">en activos gestionados globalmente</text>
+    <text x="125" y="102" fill="rgba(52,211,153,.85)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle" font-weight="bold">Mayor plataforma de gestión de riesgos del mundo</text>
+  </svg>`,
+  bloomberg: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <text x="125" y="14" fill="rgba(148,163,184,.7)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">Análisis de Sentimiento NLP</text>
+    <path d="M32,90 A82,82 0 0,1 218,90" fill="none" stroke="rgba(56,189,248,.1)" stroke-width="16"/>
+    <path d="M32,90 A82,82 0 0,1 86,30" fill="none" stroke="rgba(248,113,113,.48)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M86,30 A82,82 0 0,1 164,30" fill="none" stroke="rgba(251,191,36,.45)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M164,30 A82,82 0 0,1 218,90" fill="none" stroke="rgba(52,211,153,.5)" stroke-width="16" stroke-linecap="round"/>
+    <line x1="125" y1="90" x2="188" y2="42" stroke="#22d3ee" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="125" cy="90" r="5" fill="#22d3ee"/>
+    <text x="28" y="108" fill="rgba(248,113,113,.8)" font-size="7.5" font-family="Inter,sans-serif">Negativo</text>
+    <text x="110" y="22" fill="rgba(251,191,36,.8)" font-size="7.5" font-family="Inter,sans-serif" text-anchor="middle">Neutro</text>
+    <text x="216" y="108" fill="rgba(52,211,153,.8)" font-size="7.5" font-family="Inter,sans-serif" text-anchor="end">Positivo</text>
+  </svg>`,
+  gme: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(34,211,238,.32)"/><stop offset="100%" stop-color="rgba(34,211,238,0)"/></linearGradient>
+    </defs>
+    <line x1="24" y1="10" x2="24" y2="92" stroke="rgba(56,189,248,.2)" stroke-width="1"/>
+    <line x1="24" y1="92" x2="244" y2="92" stroke="rgba(56,189,248,.2)" stroke-width="1"/>
+    <path d="M24,88 L75,85 L115,82 L148,79 L162,34 L172,12 L182,42 L196,68 L244,72" fill="none" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M24,88 L75,85 L115,82 L148,79 L162,34 L172,12 L182,42 L196,68 L244,72 L244,92 L24,92Z" fill="url(#gg1)"/>
+    <path d="M24,90 L75,89 L115,87 L146,83 L158,22 L168,10 L178,52 L196,82 L244,85" fill="none" stroke="rgba(251,191,36,.68)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="172" cy="12" r="3.5" fill="#22d3ee"/>
+    <circle cx="168" cy="10" r="3" fill="rgba(251,191,36,.9)"/>
+    <text x="150" y="9" fill="#22d3ee" font-size="7.5" font-family="Inter,sans-serif">Precio</text>
+    <text x="150" y="20" fill="rgba(251,191,36,.85)" font-size="7.5" font-family="Inter,sans-serif">Menciones</text>
+    <text x="24" y="104" fill="rgba(148,163,184,.6)" font-size="7" font-family="Inter,sans-serif">Ene 2021</text>
+    <text x="200" y="104" fill="rgba(148,163,184,.6)" font-size="7" font-family="Inter,sans-serif">Feb 2021</text>
+  </svg>`,
+  robo: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <text x="125" y="14" fill="rgba(148,163,184,.7)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle">Portafolio Típico Robo-Advisor</text>
+    <circle cx="80" cy="68" r="40" fill="none" stroke="#22d3ee" stroke-width="14" stroke-dasharray="100 251" stroke-dashoffset="0" transform="rotate(-90,80,68)"/>
+    <circle cx="80" cy="68" r="40" fill="none" stroke="#0ea5e9" stroke-width="14" stroke-dasharray="75 251" stroke-dashoffset="-100" transform="rotate(-90,80,68)"/>
+    <circle cx="80" cy="68" r="40" fill="none" stroke="rgba(52,211,153,.85)" stroke-width="14" stroke-dasharray="50 251" stroke-dashoffset="-175" transform="rotate(-90,80,68)"/>
+    <circle cx="80" cy="68" r="40" fill="none" stroke="rgba(251,191,36,.75)" stroke-width="14" stroke-dasharray="26 251" stroke-dashoffset="-225" transform="rotate(-90,80,68)"/>
+    <text x="80" y="63" fill="rgba(148,163,184,.7)" font-size="6.5" font-family="Inter,sans-serif" text-anchor="middle">Auto</text>
+    <text x="80" y="73" fill="rgba(148,163,184,.7)" font-size="6.5" font-family="Inter,sans-serif" text-anchor="middle">balanceado</text>
+    <rect x="148" y="30" width="8" height="8" rx="2" fill="#22d3ee"/>
+    <text x="161" y="38" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif">Acciones 40%</text>
+    <rect x="148" y="46" width="8" height="8" rx="2" fill="#0ea5e9"/>
+    <text x="161" y="54" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif">Bonos 30%</text>
+    <rect x="148" y="62" width="8" height="8" rx="2" fill="rgba(52,211,153,.85)"/>
+    <text x="161" y="70" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif">Internac. 20%</text>
+    <rect x="148" y="78" width="8" height="8" rx="2" fill="rgba(251,191,36,.75)"/>
+    <text x="161" y="86" fill="rgba(148,163,184,.8)" font-size="8" font-family="Inter,sans-serif">Altern. 10%</text>
+  </svg>`,
+  blockchain: `<svg viewBox="0 0 250 115" xmlns="http://www.w3.org/2000/svg">
+    <line x1="52" y1="50" x2="80" y2="32" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="52" y1="64" x2="80" y2="82" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="104" y1="25" x2="146" y2="25" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="104" y1="89" x2="146" y2="89" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="92" y1="38" x2="92" y2="76" stroke="rgba(56,189,248,.2)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="158" y1="38" x2="158" y2="76" stroke="rgba(56,189,248,.2)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="170" y1="32" x2="196" y2="50" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="170" y1="82" x2="196" y2="64" stroke="rgba(56,189,248,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <circle cx="40" cy="57" r="13" fill="rgba(14,165,233,.14)" stroke="rgba(56,189,248,.45)" stroke-width="1.5"/>
+    <circle cx="92" cy="25" r="13" fill="rgba(14,165,233,.14)" stroke="rgba(56,189,248,.45)" stroke-width="1.5"/>
+    <circle cx="92" cy="89" r="13" fill="rgba(14,165,233,.14)" stroke="rgba(56,189,248,.45)" stroke-width="1.5"/>
+    <circle cx="158" cy="25" r="13" fill="rgba(14,165,233,.14)" stroke="rgba(56,189,248,.45)" stroke-width="1.5"/>
+    <circle cx="158" cy="89" r="13" fill="rgba(14,165,233,.14)" stroke="rgba(56,189,248,.45)" stroke-width="1.5"/>
+    <circle cx="210" cy="57" r="13" fill="rgba(52,211,153,.12)" stroke="rgba(52,211,153,.5)" stroke-width="1.5"/>
+    <text x="40" y="61" fill="#22d3ee" font-size="11" text-anchor="middle">⛓</text>
+    <text x="92" y="29" fill="#22d3ee" font-size="11" text-anchor="middle">✓</text>
+    <text x="92" y="93" fill="#22d3ee" font-size="11" text-anchor="middle">✓</text>
+    <text x="158" y="29" fill="#22d3ee" font-size="11" text-anchor="middle">✓</text>
+    <text x="158" y="93" fill="#22d3ee" font-size="11" text-anchor="middle">✓</text>
+    <text x="210" y="61" fill="rgba(52,211,153,.95)" font-size="11" text-anchor="middle">🔒</text>
+    <text x="125" y="110" fill="rgba(52,211,153,.85)" font-size="8.5" font-family="Inter,sans-serif" text-anchor="middle" font-weight="bold">Inmutable · Transparente · Auditable</text>
+  </svg>`
+};
+
+const casosDB = {
+  p1: {
+    kicker: 'Fundamentos · Banca Inteligente',
+    title: 'Casos Reales — IA en Finanzas',
+    items: [
+      { tag:'Banca Corporativa', name:'JPMorgan Chase — COIN',
+        desc:'La herramienta <strong>COIN</strong> (Contract Intelligence) analiza contratos legales que antes requerían <strong>360,000 horas/año</strong> de trabajo humano. Con IA la tarea se completa en segundos con mayor nivel de precisión.',
+        mets:[{v:'360K h',l:'ahorro anual'},{v:'&lt;1 seg',l:'por contrato'}], svg: SVG.coin },
+      { tag:'Asistente Virtual', name:'Bank of America — Erica',
+        desc:'Erica es el asistente virtual inteligente de BofA. Analiza patrones de gasto, recomienda ahorros y alerta sobre pagos. Disponible 24/7, es utilizado por <strong>millones de clientes</strong> diariamente.',
+        mets:[{v:'35M+',l:'usuarios activos'},{v:'2B+',l:'interacciones'}], svg: SVG.erica }
+    ]
+  },
+  p2: {
+    kicker: 'Mercados · Trading Algorítmico',
+    title: 'Casos Reales — Trading Algorítmico',
+    items: [
+      { tag:'Hedge Fund', name:'Renaissance Technologies — Medallion',
+        desc:'Considerado el fondo más exitoso de la historia. Medallion emplea matemáticos, estadísticos y algoritmos avanzados para encontrar <strong>oportunidades invisibles</strong> para operadores tradicionales.',
+        mets:[{v:'~66%',l:'retorno anual promedio'},{v:'$10B+',l:'AUM'}], svg: SVG.renaissance },
+      { tag:'Banca de Inversión', name:'Goldman Sachs — Automatización',
+        desc:'Goldman Sachs automatizó gran parte de su trading. Una mesa que antes requería <strong>cientos de operadores</strong> hoy opera con pocos supervisores y sistemas algorítmicos, reduciendo costos operativos significativamente.',
+        mets:[{v:'~80%',l:'ops automatizadas'},{v:'↓ costo',l:'operativo'}], svg: SVG.goldman },
+      { tag:'Alta Frecuencia (HFT)', name:'Citadel Securities & Virtu Financial',
+        desc:'Líderes en trading de alta frecuencia. Ejecutan <strong>miles de operaciones por segundo</strong> usando infraestructura tecnológica de punta, representando una fracción significativa del volumen diario en mercados estadounidenses.',
+        mets:[{v:'10K+',l:'ops/segundo'},{v:'&gt;50%',l:'volumen EE.UU.'}], svg: SVG.hft }
+    ]
+  },
+  p3: {
+    kicker: 'Predicción · Análisis de Mercados',
+    title: 'Casos Reales — Análisis Predictivo',
+    items: [
+      { tag:'Gestión de Activos', name:'BlackRock — Aladdin',
+        desc:'Aladdin es la plataforma de gestión de riesgos de BlackRock. Analiza riesgo de mercado, crediticio y operativo en tiempo real, <strong>simulando miles de escenarios económicos</strong> antes de cada decisión de inversión.',
+        mets:[{v:'$21T',l:'activos gestionados'},{v:'1000+',l:'escenarios simulados'}], svg: SVG.aladdin },
+      { tag:'Procesamiento de Lenguaje', name:'Bloomberg — NLP en Mercados',
+        desc:'Bloomberg usa NLP para analizar noticias, informes y declaraciones de bancos centrales. La IA detecta el <strong>sentimiento positivo o negativo</strong> de cada noticia y genera alertas de impacto en activos financieros en milisegundos.',
+        mets:[{v:'ms',l:'tiempo de análisis'},{v:'24/7',l:'monitoreo global'}], svg: SVG.bloomberg },
+      { tag:'Sentimiento Social', name:'GameStop — El Poder de Reddit',
+        desc:'El fenómeno <strong>GME (GameStop)</strong> demostró que el análisis de redes sociales puede predecir movimientos extremos. Hoy, fondos cuantitativos monitorizan Reddit y X (Twitter) en tiempo real para anticipar movimientos.',
+        mets:[{v:'1,700%',l:'subida en días'},{v:'Reddit',l:'catalizador'}], svg: SVG.gme }
+    ]
+  },
+  p7: {
+    kicker: 'Horizonte · El Futuro ya Existe',
+    title: 'Casos Reales — El Futuro de las Finanzas',
+    items: [
+      { tag:'Robo-Advisors', name:'Betterment & Wealthfront',
+        desc:'Plataformas que ya funcionan como asesores financieros automáticos. Evalúan tu perfil de riesgo, <strong>construyen un portafolio diversificado</strong> y lo rebalancean automáticamente. El próximo paso: acceso masivo desde cualquier móvil.',
+        mets:[{v:'$50B+',l:'activos gestionados'},{v:'24/7',l:'rebalanceo auto'}], svg: SVG.robo },
+      { tag:'IA + Blockchain', name:'Contratos Inteligentes y Auditoría Continua',
+        desc:'La combinación de IA con blockchain permite contratos que se ejecutan solos, <strong>verificación automática de transacciones</strong> y auditorías continuas. Podría eliminar gran parte del fraude financiero global.',
+        mets:[{v:'100%',l:'trazabilidad'},{v:'0 seg',l:'auditoría'}], svg: SVG.blockchain }
+    ]
+  }
+};
+
+function openCasos(sectionId) {
+  const data = casosDB[sectionId];
+  if (!data) return;
+  document.getElementById('casos-kicker').textContent = data.kicker;
+  document.getElementById('casos-title').textContent = data.title;
+  document.getElementById('casos-bd').innerHTML = data.items.map(c=>`
+    <div class="caso-card">
+      <div class="caso-info">
+        <span class="caso-tag">${c.tag}</span>
+        <h3>${c.name}</h3>
+        <p>${c.desc}</p>
+        <div class="caso-mets">${c.mets.map(m=>`<div class="caso-met"><span class="v">${m.v}</span><span class="l">${m.l}</span></div>`).join('')}</div>
+      </div>
+      <div class="caso-vis">${c.svg}</div>
+    </div>`).join('');
+  document.getElementById('casos-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCasos() {
+  document.getElementById('casos-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ---- Entry screen & name validation ---- */
+const BAD_WORDS=['pene','puta','mierda','culo','cono','coño','verga','pendejo','cabron','joder','follar','fuck','shit','ass','dick','cock','pussy','bitch','bastard','idiota','imbecil','gilipoll','mamada','polla','chinga','culero','pito','pepino','maricon','marica','estupid','bobo','gilipollas','hdp','ojete','carajo','pinga','perra','zorra','prostituta','whore','faggot','slut','crap','damn','nude','sex','porn'];
+
+function normStr(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,'');}
+function hasInappropriate(text){
+  const n=normStr(text);
+  const words=n.split(/\s+/);
+  return BAD_WORDS.some(bad=>words.some(w=>w===bad||w.includes(bad)));
+}
+
+function submitEntry(){
+  const name=document.getElementById('entry-name').value.trim();
+  const org=document.getElementById('entry-org').value.trim();
+  const err=document.getElementById('entry-err');
+  err.classList.remove('show');
+
+  if(!name||name.length<2){
+    err.textContent='Por favor ingresa tu nombre completo.';
+    err.classList.add('show'); return;
+  }
+  if(!org||org.length<2){
+    err.textContent='Por favor indica tu universidad u organización.';
+    err.classList.add('show'); return;
+  }
+  if(hasInappropriate(name)||hasInappropriate(org)){
+    err.textContent='Por favor ingresa un nombre y organización reales. Este es un espacio académico y todos los registros pueden ser revisados.';
+    err.classList.add('show');
+    document.getElementById('entry-name').value='';
+    document.getElementById('entry-name').focus();
+    return;
+  }
+
+  sessionStorage.setItem('iafinanzas_user',JSON.stringify({name,org}));
+  document.getElementById('entry-overlay').classList.add('hidden');
+  document.body.style.overflow='';
+  document.getElementById('cname').value=name;
+  setTimeout(()=>toast('Bienvenido/a, '+name.split(' ')[0]+'. Que disfrutes el blog!'),400);
+}
+
+document.getElementById('entry-name').addEventListener('keydown',function(e){ if(e.key==='Enter'){ document.getElementById('entry-org').focus(); } });
+document.getElementById('entry-org').addEventListener('keydown',function(e){ if(e.key==='Enter'){ submitEntry(); } });
+
+(function initEntry(){
+  const user=sessionStorage.getItem('iafinanzas_user');
+  if(user){
+    document.getElementById('entry-overlay').classList.add('hidden');
+    document.getElementById('cname').value=JSON.parse(user).name;
+  } else {
+    document.body.style.overflow='hidden';
+  }
+})();
+
+/* ---- Bibliografía ---- */
+const bibSections = [
+  {
+    title: 'Fundamentos · IA en Finanzas',
+    tag: 'P1 — ¿Qué es la IA?',
+    entries: [
+      { num:1, text:'<strong>Organisation for Economic Co-operation and Development.</strong> (2024). <em>Artificial Intelligence in Finance</em>. Recuperado de: <a href="https://www.oecd.org" target="_blank" rel="noopener">www.oecd.org</a>' },
+      { num:2, text:'<strong>International Monetary Fund.</strong> (2024). <em>Artificial Intelligence and the Future of Finance</em>. Recuperado de: <a href="https://www.imf.org" target="_blank" rel="noopener">www.imf.org</a>' },
+      { num:5, text:'<strong>IBM.</strong> (2024). <em>Artificial Intelligence in Banking and Financial Services</em>.' },
+      { num:6, text:'<strong>Microsoft AI Blog.</strong> (2024). <em>AI Applications in Financial Services</em>.' },
+    ]
+  },
+  {
+    title: 'Trading Algorítmico · Análisis Predictivo',
+    tag: 'P2 — P3',
+    entries: [
+      { num:4, text:'<strong>Bank for International Settlements.</strong> (2023). <em>Artificial Intelligence and Machine Learning in Financial Services</em>. Recuperado de: <a href="https://www.bis.org" target="_blank" rel="noopener">www.bis.org</a>' },
+    ]
+  },
+  {
+    title: 'Seguridad Financiera',
+    tag: 'P5 — Detección de Fraudes',
+    entries: [
+      { num:7, text:'<strong>International Organization for Standardization.</strong> (2022). <em>ISO/IEC 27001: Information security management</em>. Recuperado de: <a href="https://www.iso.org" target="_blank" rel="noopener">www.iso.org</a>' },
+    ]
+  },
+  {
+    title: 'Ética y Regulación',
+    tag: 'P6 — Aspectos Éticos',
+    entries: [
+      { num:3, text:'<strong>World Economic Forum.</strong> (2024). <em>The Future of Artificial Intelligence in Financial Services</em>. Recuperado de: <a href="https://www.weforum.org" target="_blank" rel="noopener">www.weforum.org</a>' },
+      { num:8, text:'<strong>ISACA.</strong> (2019). <em>COBIT 2019 framework: Introduction and methodology</em>. Recuperado de: <a href="https://www.isaca.org/resources/cobit" target="_blank" rel="noopener">www.isaca.org</a>' },
+    ]
+  },
+  {
+    title: 'Referencias Generales',
+    tag: 'General',
+    entries: [
+      { num:9, text:'<strong>IPMA.</strong> (2020). <em>IPMA competence baseline</em>. Recuperado de: <a href="https://www.ipma.world" target="_blank" rel="noopener">www.ipma.world</a>' },
+      { num:10, text:'<strong>JVS Informática.</strong> (s.f.). <em>Código binario</em>. Recuperado de: <a href="https://www.jvs-informatica.com/blog/glosario/codigo-binario" target="_blank" rel="noopener">www.jvs-informatica.com</a>' },
+    ]
+  }
+];
+
+function openBiblio(highlightNum) {
+  const body = document.getElementById('bib-body');
+  body.innerHTML = bibSections.map(sec => `
+    <div class="bib-section">
+      <div class="bib-sec-hdr">
+        <span class="bib-sec-title">${sec.title}</span>
+        <span class="bib-sec-tag">${sec.tag}</span>
+      </div>
+      ${sec.entries.map(e => `
+        <div class="bib-entry${highlightNum===e.num?' bib-hl':''}">
+          <span class="bib-num">[${e.num}]</span>
+          <span class="bib-text">${e.text}</span>
+        </div>`).join('')}
+    </div>`).join('');
+  document.getElementById('bib-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if(highlightNum !== undefined) {
+    setTimeout(() => {
+      const hl = body.querySelector('.bib-hl');
+      if(hl) hl.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 150);
+  }
+}
+function closeBiblio() {
+  document.getElementById('bib-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
